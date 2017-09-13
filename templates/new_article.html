@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% block head-js %}
+    <script type="text/javascript" src="/static/plugins/ckeditor/ckeditor.js"></script>
+{% endblock %}
+
+
+
+{% block page-container %}
+    <div class="new-article">
+        {% if  new_article_obj %}
+            <h3>文章<{{ new_article_obj.title }}>已发布，<a href="{% url 'article_detail' new_article_obj.id %}">点我查看</a></h3>
+        {% else %}
+            <form enctype="multipart/form-data" method="post" action="{% url 'new_article' %}">{% csrf_token %}
+                <input type="text" name="title" class="form-control" placeholder="文章标题">
+    {#            {{ category_list }}#}
+                <select name="category_id" class="form-control">
+                    {% for category in category_list  %}
+                         <option value={{ category.id }}>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+                <input name="summary" type="text" class="form-control" placeholder="一句话文章中心思想">
+                <input type="file" name="head_img">必须文章标题图标
+    {#            <textarea class="form-control" rows="3"></textarea>#}
+                <textarea name="content" id="editor1" rows="10" cols="80"></textarea>
+                <button type="submit" class="btn btn-success pull-right">发贴</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}
+
+  {% block bottom-js %}
+      <script>
+          CKEDITOR.replace( 'editor1' );
+                  CKEDITOR.editorConfig = function( config ) {
+                        //config.language = 'es';
+                        config.uiColor = '#F7B42C';
+                        config.height = 500;
+                        config.toolbarCanCollapse = true;
+        };
+      </script>
+  {% endblock %}
