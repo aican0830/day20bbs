@@ -4,7 +4,9 @@ from __future__ import unicode_literals
 from django.contrib import admin
 
 # Register your models here.
-import models
+#import models
+from web import models
+
 #admin界面只限制第一列，我们想让他显示id之类的列的时候，重新定义类
 class CategroyAdmin(admin.ModelAdmin):
     list_display = ('id','name')

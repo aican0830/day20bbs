@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render,HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate,login,logout
-import models
+from web import models
 from web.forms import ArticleForm
 import os
 # Create your views here.
@@ -37,9 +37,9 @@ def acc_logout(request):
 def acc_login(request):
     err_msg = ''
 
-    print request.POST
+    #print request.POST
     if request.method =='POST':
-        print "user authention..."
+        #print "user authention..."
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username,password=password)
@@ -54,7 +54,7 @@ def acc_login(request):
 
 def new_article(request):
     if request.method =='POST':
-        print request.POST
+        #print request.method
         form = ArticleForm(request.POST,request.FILES)
         if form.is_valid():
             print ("--form.data:",form.data)
